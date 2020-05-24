@@ -25,7 +25,7 @@ SECRET_KEY = '+ihh$0-+znmcy-)-&1e*r%_#nc=3jmcmyt2io^0#0^tt^^6(dp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['hckblog.in', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
