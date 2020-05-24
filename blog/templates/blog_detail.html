@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Page Header -->
+<header class="masthead">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          <span class="meta">Posted by
+            <strong>Harish CK</strong>
+            {{post.created_on.date}} |&nbsp;
+            Categories:&nbsp;
+            {% for category in post.categories.all %}
+            <a href="{% url 'blog_category' category.name %}">
+              {{ category.name }}
+            </a>&nbsp;</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Post Content -->
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <img class="img-fluid img-thumbnail" src="{{ post.image.url }}">
+        <br>
+        <br>
+        <p>{{ post.body | linebreaks }}</p>
+        <div class="container">
+          {% if post_sections %}
+          {% for section in post_sections %}
+          {% if section.type.type == 'Heading' %}
+          <h4>{{ section }}</h4>
+          {% if section.image %}
+          <img src="{{ section.image.url }}">
+          {% endif %}
+          {% elif section.type.type == 'Step' %}
+          <ul>
+            <li>
+              {{ section }}
+              {% if section.body %}
+              <p>{{ section.body }}</p>
+              {% endif %}
+              {% if section.command %}
+              <div>
+                <code>
+                  {{ section.command | linebreaks }}
+                </code>
+              </div>
+              {% endif %}
+              {% if section.image %}
+              <img src="{{ section.image.url }}">
+              {% endif %}
+            </li>
+          </ul>
+          {% endif %}
+          {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<section class="comments">
+  <div class="container modal-contact">
+    <div class="modal-body row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <h3>Leave a comment:</h3>
+        <form action="{% url 'blog_detail' post.pk %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form.author }}
+          </div>
+          <div class="form-group">
+            {{ form.body }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <br>
+        <h3>Comments:</h3>
+        {% if comments %}
+        {% for comment in comments %}
+        <p>
+          On {{comment.created_on.date }}&nbsp;
+          <b>{{ comment.author }}</b> wrote:
+        </p>
+        <p>{{ comment.body }}</p>
+        <hr>
+        {% endfor %}
+        {% else %}
+        <p>No Comments..</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
