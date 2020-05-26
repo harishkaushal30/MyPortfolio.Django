@@ -1,7 +1,7 @@
 from storages.backends.azure_storage import AzureStorage
 from my_portfolio.azvault import AzVault
 
-vault = AzVault("https://my-test-py.vault.azure.net/")
+vault = AzVault()
 blobSecret = vault.getSecret('myportfoliodjangosa')
 
 class AzureMediaStorage(AzureStorage):

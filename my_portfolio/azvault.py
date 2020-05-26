@@ -4,7 +4,7 @@ from azure.keyvault.secrets import SecretClient
 class AzVault:
     _credential = None
     _client = None
-    def __init__(self, vaulturi):
+    def __init__(self, vaulturi="https://my-test-py.vault.azure.net/"):
         if self._credential == None or self._client == None:
             self._credential = DefaultAzureCredential()
             self._client = SecretClient(vault_url=vaulturi, credential=self._credential)
