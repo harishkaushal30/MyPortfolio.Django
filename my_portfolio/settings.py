@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from my_portfolio.azvault import AzVault
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+VAULT = AzVault("https://my-test-py.vault.azure.net/")
+SQLSECRET = VAULT.getSecret('portfoliosql')
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,7 +27,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '+ihh$0-+znmcy-)-&1e*r%_#nc=3jmcmyt2io^0#0^tt^^6(dp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False   
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myportfoliodb',
         'USER': 'myadmin@myportfoliodb',
-        'PASSWORD': 'LS1setup!',
+        'PASSWORD': SQLSECRET.value,
         'HOST': 'myportfoliodb.postgres.database.azure.com',
         'PORT': '5432',
     }
