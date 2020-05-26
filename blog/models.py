@@ -15,7 +15,7 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField('Category', related_name='posts')
-    image = models.ImageField(upload_to='postsimg', blank=True)
+    image = models.ImageField(blank=True)
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='DRAFT')
 
     def __str__(self):
