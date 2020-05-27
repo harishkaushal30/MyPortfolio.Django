@@ -17,6 +17,7 @@ class Post(models.Model):
     categories = models.ManyToManyField('Category', related_name='posts')
     image = models.ImageField(blank=True)
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='DRAFT')
+    hyperlink = models.TextField(blank=True)
 
     def __str__(self):
         return self.title
@@ -35,6 +36,8 @@ class PostSection(models.Model):
     type = models.ForeignKey('SectionType', models.SET_NULL, blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     command = models.TextField(blank=True)
+    error = models.TextField(blank=True)
+    hyperlink = models.TextField(blank=True)
 
     def __str__(self):
         return self.title

@@ -138,4 +138,6 @@ dmypy.json
 cython_debug/
 
 tasks.json
-.vscod/*
+.vscode/*
+keys.py
+

@@ -32,7 +32,11 @@
         <img class="img-fluid img-thumbnail" src="{{ post.image.url }}">
         <br>
         <br>
-        <p>{{ post.body | linebreaks }}</p>
+        <p class="lead">{{ post.body | linebreaks }}</p>
+        {% if post.hyperlink %}
+        <a target="_blank" href="{{ post.hyperlink }}">{{ post.hyperlink }}</a>
+        <br>
+        {% endif %}
         <div class="container">
           {% if post_sections %}
           {% for section in post_sections %}
@@ -44,24 +48,33 @@
           {% elif section.type.type == 'Step' %}
           <ul>
             <li>
-              {{ section }}
+              <!-- {{ section }} -->
               {% if section.body %}
-              <p>{{ section.body }}</p>
+              <p class="lead">{{ section.body | linebreaks }}</p>
+              {% endif %}
+              {% if post.hyperlink %}
+              <a target="_blank" href="{{ section.hyperlink }}">{{ section.hyperlink }}</a>
+              {% endif %}
+              {% if section.error %}
+              <p class="alert alert-danger">{{ section.error }}</p>
               {% endif %}
               {% if section.command %}
               <div>
                 <code>
-                  {{ section.command | linebreaks }}
+                  <pre>{{ section.command|safe }}</pre>
                 </code>
               </div>
               {% endif %}
               {% if section.image %}
-              <img src="{{ section.image.url }}">
+              <img class="img-thumbnail" src="{{ section.image.url }}">
               {% endif %}
             </li>
           </ul>
+          {% elif section.type.type == 'Footer' %}
+          <blockquote>{{ section.body }}</blockquote>
           {% endif %}
           {% endfor %}
+
           {% endif %}
         </div>
       </div>
