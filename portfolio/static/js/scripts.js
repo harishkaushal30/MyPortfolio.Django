@@ -66,4 +66,9 @@
     });
   
   })(jQuery); // End of use strict
+
+  function addButtonAnimation(){
+    var element = document.getElementById("emailbtn");
+    element.classList.add("animate__animated animate__headShake");
+  }
   

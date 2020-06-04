@@ -128,16 +128,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
-STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'backend.custom_azure.AzureMediaStorage'
+    STATICFILES_STORAGE = 'backend.custom_azure.AzureStaticStorage'
 
-STATIC_LOCATION = 'static'
-MEDIA_LOCATION = 'media'
+    STATIC_LOCATION = 'static'
+    MEDIA_LOCATION = 'media'
 
-AZURE_ACCOUNT_NAME = 'myportfoliodjangosa'
-AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
-STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
-MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+    AZURE_ACCOUNT_NAME = 'myportfoliodjangosa'
+    AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+
+    STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+    MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
+else:
+    MEDIA_URL = '/media/'
+    STATIC_URL = '/static/'
 
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # MEDIA_URL = '/media/'
