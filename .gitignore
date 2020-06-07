@@ -140,4 +140,6 @@ cython_debug/
 tasks.json
 .vscode/*
 keys.py
+staticfiles
+staticfiles/*
 

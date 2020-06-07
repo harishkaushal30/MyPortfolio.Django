@@ -10493,27 +10493,3 @@ form .row:first-child .floating-label-form-group {
 	  font-size: 16px;
 	}
   }
-  
-  @media (max-width: 759px) {
-	header h1 {
-	  font-size: 5em;
-	}
-	
-	.new-section {
-	  font-size: 3em;
-	}
-	
-	.scroll-animations {
-	  display: block;
-	}
-	
-	.scroll-animations div {
-	  padding: 20px 80px;
-	}
-	
-	.click-animations input,
-	.click-animations textarea,
-	.click-animations button {
-	  width: 80%;
-	}
-  }
