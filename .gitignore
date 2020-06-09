@@ -142,4 +142,6 @@ tasks.json
 keys.py
 staticfiles
 staticfiles/*
+djangoenv
+djangoenv/*
 
