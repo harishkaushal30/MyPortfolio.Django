@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <span>
+                <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                    {{ message }}
+                </div>
+            </span>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div>
+            <img class="animate__animated animate__backInLeft masthead-avatar mb-5 rounded-circle" src="{% static 'assets/img/MyProfile.jpg' %}" alt="">
+            <!-- Masthead Heading-->
+            <h1 class="animate__animated animate__backInRight animate__delay-1s masthead-heading mb-0">
+                    Harish CK
+            </h1>
+            <!-- Icon Divider-->
+            <div class="divider-custom divider-light">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Masthead Subheading-->
+            <p class="animate__animated animate__backInLeft animate__delay-2s pre-wrap masthead-subheading font-weight-light mb-0">Service Engineer 2 @ Microsoft</p>
+        </div>
+    </div>
+</header>
+<section class="page-section portfolio" id="portfolio">
+    <div class="container">
+        <!-- Portfolio Section Heading-->
+        <div class="text-center">
+            <h2 class="page-section-heading text-secondary mb-0 d-inline-block">BLOGS</h2>
+        </div>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+
+        <!-- Portfolio Grid Items-->
+        <div class="container">
+            <div class="row justify-content-center">
+                {% for post in posts %}
+                <!-- Portfolio Items-->
+                <div class="col-md-6 col-lg-4 mb-5">
+                    <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal0{{ post.id }}">
+                        <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                            <div class="portfolio-item-caption-content text-center text-white"><i
+                                    class="fas fa-plus fa-3x"></i></div>
+                        </div><img class="portfolio-img img-fluid img-thumbnail" {% if post.image %} src="{{ post.image.url }}" {% else %} src="" {% endif %} alt="{{ post.title }}" />
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- <div>
+                <a target="_blank" href="{% url 'blog' %}">All Blogs <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div> -->
+        </div>
+    </div>
+</section>
+
+{% for post in posts %}
+<!-- Portfolio Modal-->
+<div class="portfolio-modal modal fade" id="portfolioModal0{{ post.id }}" tabindex="-1" role="dialog"   
+    aria-labelledby="#portfolioModal0{{ post.id }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-body text-center">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <!-- Portfolio Modal - Title-->
+                            <h3 class="text-secondary mb-0">{{post.title }}</h3>
+                            <!-- Icon Divider-->
+                            <div class="divider-custom">
+                                <div class="divider-custom-line"></div>
+                                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                <div class="divider-custom-line"></div>
+                            </div>
+                            <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5"
+                                src="{{ post.image.url }}" alt="{{ post.title }}" />
+                            <!-- Portfolio Modal - Text-->
+                            <p class="mb-5">
+                                {{ post.body | slice:":200"}}
+                            </p>
+                            <a target="_blank" href="{% url 'blog_detail' post.id %}"><strong>Want to read more? Click
+                                Here...</strong></a><br><br>
+                            <button class="btn btn-primary" href="#" data-dismiss="modal"><i
+                                    class="fas fa-times fa-fw"></i>Close Window</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<section class="page-section bg-primary text-white mb-0" id="about">
+    <div class="container">
+        <!-- About Section Heading-->
+        <div class="text-center">
+            <h2 class="page-section-heading d-inline-block text-white">ABOUT</h2>
+        </div>
+        <!-- Icon Divider-->
+        <div class="divider-custom divider-light">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- About Section Content-->
+        <div>
+            <div class="ml-auto">
+                <p class="lead">
+                    {{ aboutMe }}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="page-section" id="contact">
+    <div class="container">
+        <!-- Contact Section Heading-->
+        <div class="text-center">
+            <h2 class="page-section-heading text-secondary d-inline-block mb-0">CONTACT</h2>
+        </div>
+        <!-- Icon Divider-->
+        <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+        </div>
+        <!-- Contact Section Content-->
+        <div class="row justify-content-center">
+            <div class="col-lg-4">
+                <div class="d-flex flex-column align-items-center">
+                    <a id="emailbtn" onclick="addButtonAnimation()" href="mailto:harishkaushal30@gmail.com">
+                        <div class="btn btn-outline-primary btn-contact mb-3">
+                            <i class="far fa-envelope"></i>
+                        </div>
+                    </a>
+                    <div class="text-muted">Email</div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="d-flex flex-column align-items-center">
+                    <a href="" data-target="#contactmodal" data-toggle="modal" data-whatever="Harish">
+                        <div class="btn btn-outline-primary btn-contact mb-3"><i class="fas fa-sms"></i></div>
+                    </a>
+                    <div class="text-muted">Message</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Message Form -->
+
+<div class="modal fade" id="contactmodal" tabindex="-1" role="dialog" aria-labelledby="contactModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-contact">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send message</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'home' %}" method="POST">
+                    {% csrf_token %}
+                    {% for field in contact_form %}
+                    <div class="form-group">
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Send message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
