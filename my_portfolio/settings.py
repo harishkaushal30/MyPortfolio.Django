@@ -26,8 +26,8 @@ SQLSECRET = VAULT.getSecret('portfoliosql')
 SECRET_KEY = '+ihh$0-+znmcy-)-&1e*r%_#nc=3jmcmyt2io^0#0^tt^^6(dp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get("DEBUG"):
-    DEBUG = os.environ.get("DEBUG")
+if os.environ.get("DEBUG") != None:
+    DEBUG = bool(os.environ.get("DEBUG"))
 else:
     DEBUG = True
 
