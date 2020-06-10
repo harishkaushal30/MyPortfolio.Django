@@ -2,10 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import my_portfolio.settings
 
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'my_portfolio.settings')
+    if os.environ.has_key("DEBUG"):
+        settings.DEBUG = os.environ.get("DEBUG")
     if os.path.exists("keys.py"):
         import keys
     else:
