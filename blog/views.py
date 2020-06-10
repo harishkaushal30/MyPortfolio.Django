@@ -18,8 +18,8 @@ def index(request):
     }
     return render(request, 'home.html', context)
 
-def blog_detail(request, pk):
-    post = Post.objects.filter(state="PUBLISHED").get(pk=pk)
+def blog_detail(request, slug):
+    post = Post.objects.filter(state="PUBLISHED").get(slug=slug)
 
     form = CommentForm()
     if request.method == 'POST':
@@ -42,9 +42,17 @@ def blog_detail(request, pk):
     return render(request, "blog_detail.html", context)
 
 def blog_category(request, category):
-    posts = Post.objects.filter(
+    all_posts = Post.objects.filter(
         categories__name__contains=category
         ).filter(state="PUBLISHED").order_by('-created_on')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(all_posts, 4)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     context = {
         "posts":posts,
         "category": category,

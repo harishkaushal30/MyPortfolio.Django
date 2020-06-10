@@ -14,10 +14,10 @@
                         <h2 class="post-title">
                             {{ post.title }}
                         </h2>
-                        <p class="post-subtitle">
-                            {{post.body | slice:":200"}}
-                        </p>
                     </a>
+                    <p class="post-subtitle">
+                        {{post.body | slice:":200"}}
+                    </p>
                     <p class="post-meta">Posted by
                         <strong>Harish CK</strong>
                         on {{ post.created_on.date }} |&nbsp;
@@ -25,15 +25,12 @@
                         {% for category in post.categories.all %}
                         <a href="{% url 'blog_category' category.name %}">
                             {{ category.name }}
-                        </a>&nbsp;</p>
+                        </a>&nbsp;
                         {% endfor %}
+                    </p>
                 </div>
-                <hr>
                 {% endfor %}
-                <!-- Pager -->
-                <div class="clearfix">
-                    <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-                </div>
+                
             </div>
         </div>
     </div>

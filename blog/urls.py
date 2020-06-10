@@ -4,7 +4,7 @@ import blog
 
 urlpatterns = [
     path('', views.index, name='blog'),
-    path('<int:pk>/', views.blog_detail, name="blog_detail"),
+    path('<str:slug>/', views.blog_detail, name="blog_detail"),
     path('<category>/', views.blog_category, name="blog_category"),
 ]
 

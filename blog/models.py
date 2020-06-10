@@ -1,4 +1,6 @@
 from django.db import models
+import re
+from django.template.defaultfilters import slugify
 
 class Category(models.Model):
     name = models.CharField(max_length=20)
@@ -10,7 +12,7 @@ class Post(models.Model):
         ('PUBLISHED', 'PUBLISHED'),
         ('DRAFT', 'DRAFT')
     ]
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True, blank=False)
     body = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
@@ -18,6 +20,11 @@ class Post(models.Model):
     image = models.ImageField(blank=True)
     state = models.CharField(max_length=20, choices=STATE_CHOICES, default='DRAFT')
     hyperlink = models.TextField(blank=True)
+    slug = models.SlugField(max_length=255, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
