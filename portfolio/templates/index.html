@@ -93,7 +93,7 @@
                             <p class="mb-5">
                                 {{ post.body | slice:":200"}}
                             </p>
-                            <a target="_blank" href="{% url 'blog_detail' post.id %}"><strong>Want to read more? Click
+                            <a target="_blank" href="{% url 'blog_detail' post.slug %}"><strong>Want to read more? Click
                                 Here...</strong></a><br><br>
                             <button class="btn btn-primary" href="#" data-dismiss="modal"><i
                                     class="fas fa-times fa-fw"></i>Close Window</button>
