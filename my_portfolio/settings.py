@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-#from my_portfolio.azvault import AzVault
+from my_portfolio.azvault import AzVault
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +22,7 @@ else:
     print("keys file doesn't exits..")
 
 VAULT = AzVault()
-#SQLSECRET = VAULT.getSecret('portfoliosql')
+SQLSECRET = VAULT.getSecret('portfoliosql')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -93,7 +93,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'myportfoliodb',
         'USER': 'myadmin@myportfoliodb',
-        'PASSWORD': os.environ.get("myportfolio_db"),
+        'PASSWORD': SQLSECRET.value,
         'HOST': 'myportfoliodb.postgres.database.azure.com',
         'PORT': '5432',
     }
