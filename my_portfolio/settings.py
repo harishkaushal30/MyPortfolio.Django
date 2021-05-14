@@ -16,6 +16,11 @@ from my_portfolio.azvault import AzVault
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+if os.path.exists("keys.py"):
+    import keys
+else:
+    print("keys file doesn't exits..")
+
 VAULT = AzVault()
 SQLSECRET = VAULT.getSecret('portfoliosql')
 
