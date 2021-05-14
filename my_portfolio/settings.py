@@ -22,19 +22,19 @@ else:
     print("keys file doesn't exits..")
 
 VAULT = AzVault()
-SQLSECRET = VAULT.getSecret('portfoliosql')
+SQLSECRET = VAULT.getSecret(os.environ["SQL_SECRET_NAME"])
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+ihh$0-+znmcy-)-&1e*r%_#nc=3jmcmyt2io^0#0^tt^^6(dp'
+SECRET_KEY = os.environ["APP_SECRET"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.environ.get("DEBUG") != None:
     DEBUG = bool(os.environ.get("DEBUG"))
 else:
-    DEBUG = True
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -91,11 +91,11 @@ WSGI_APPLICATION = 'my_portfolio.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'myportfoliodb',
-        'USER': 'myadmin@myportfoliodb',
+        'NAME': os.environ["DB_NAME"],
+        'USER': os.environ["DB_USERNAME"],
         'PASSWORD': SQLSECRET.value,
-        'HOST': 'myportfoliodb.postgres.database.azure.com',
-        'PORT': '5432',
+        'HOST': os.environ["DB_SERVER"],
+        'PORT': os.environ["DB_PORT"],
     }
 }
 
@@ -143,7 +143,7 @@ if not DEBUG:
     STATIC_LOCATION = 'static'
     MEDIA_LOCATION = 'media'
 
-    AZURE_ACCOUNT_NAME = 'myportfoliodjangosa'
+    AZURE_ACCOUNT_NAME = os.environ["STORAGE_ACCOUNT"]
     AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 
     STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'

@@ -1,8 +1,9 @@
 from storages.backends.azure_storage import AzureStorage
 from my_portfolio.azvault import AzVault
+import os
 
 vault = AzVault()
-blobSecret = vault.getSecret('myportfoliodjangosa')
+blobSecret = vault.getSecret(os.environ["STORAGE_ACCOUNT"])
 
 class AzureMediaStorage(AzureStorage):
     account_name = blobSecret.name
